@@ -23,7 +23,7 @@ public class DateTimeDemo {
         String formattedDate = sdf.format(date);
         System.out.printf("formattedDate: %3s\n" , formattedDate);
 
-        //Give a pattern to the date. This is optional.
+        //Give a pattern to the time. This is optional.
         SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss");
         String formattedTime = time.format(date);
         System.out.printf("Time: %17s \n" , formattedTime);
