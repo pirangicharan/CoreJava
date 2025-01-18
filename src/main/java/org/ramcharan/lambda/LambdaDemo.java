@@ -7,7 +7,7 @@ import java.util.function.UnaryOperator;
 public class LambdaDemo {
     public static void main(String[] args) {
         // This is by using Anonymous method.
-        Consumer<String> printTheParts = new Consumer<String>() {
+        Consumer<String> printTheParts = new Consumer<>() {
             @Override
             public void accept(String sentence) {
                 String[] parts = sentence.split(" ");

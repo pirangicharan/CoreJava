@@ -4,7 +4,7 @@ import java.util.*;
 
 
 
-public class B_TreeSetDemo {
+public class C_TreeSetDemo {
 
     // Duplicates are removed.
     // elements are Sorted.

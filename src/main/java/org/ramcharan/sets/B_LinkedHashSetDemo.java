@@ -3,7 +3,7 @@ package org.ramcharan.sets;
 import java.util.*;
 
 
-public class C_LinkedHashSetDemo {
+public class B_LinkedHashSetDemo {
 
     // Duplicates are removed.
     // There is Insertion order so no sorting.
