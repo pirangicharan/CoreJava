@@ -1,8 +1,6 @@
 package org.ramcharan.lists;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Spliterator;
+import java.util.*;
 
 public class ArrayListDemo {
 
@@ -12,6 +10,9 @@ public class ArrayListDemo {
     public static void main(String[] args) {
         List<Integer> a = new ArrayList<>(List.of(1,2,3,6,5,9));
         System.out.println(a);
+
+        System.out.println(a.subList(0,4) + " -> sublist 0f 0,4");
+        System.out.println(a.subList(2,4) + " -> sublist 0f 2,4");
 
         a.add(4,0);
         a.add(20);
@@ -29,9 +30,11 @@ public class ArrayListDemo {
         System.out.println(a);
         a.remove(4);
         System.out.println(a + " -> Removed index 4.");
+
         a.removeFirst();
         a.removeLast();
         System.out.println(a + " -> Removed first and last indexes.");
+
         a.removeIf(n -> a.indexOf(n) % 2 == 0);
         System.out.println(a + " -> Removed even indexes.");
 

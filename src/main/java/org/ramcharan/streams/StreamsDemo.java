@@ -80,6 +80,9 @@ public class StreamsDemo {
         System.out.println("----------------------------------------------------------------------------------------------");
         // Query 18 : filer id>150, desc age,desc name,print first.
         method18();
+        System.out.println("----------------------------------------------------------------------------------------------");
+        // Query 19 : Find the department with the highest total salary.
+        method19();
     }
 
 
@@ -246,11 +249,16 @@ public class StreamsDemo {
         System.out.println("Dep: " + query15.get().getDepartment());
     }
     private static void method16(){
-        System.out.println("Query 16 : Get top 2 salaries from each department");
+        System.out.println("Query 16 : Get top 2 salaries from each department.");
         Map<String,List<Employee>> map1 = employeeList.stream()
                 .collect(Collectors.groupingBy(Employee::getDepartment));
 
+        System.out.println("map1:\n" + map1);
+
         Set<Map.Entry<String, List<Employee>>> set1 = map1.entrySet();
+
+        System.out.println("set1:\n" + set1);
+        System.out.println("*****************************");
 
         for(Map.Entry<String,List<Employee>> entry : set1){
 
@@ -265,7 +273,7 @@ public class StreamsDemo {
         }
     }
     private static void method17(){
-        System.out.println("Query 17 : Find middle element from the list");
+        System.out.println("Query 17 : Find middle element from the list.");
         List<Integer> list = Arrays.asList(23, 44, 55, 66, 77, 88, 77);
         System.out.println("list: " + list);
         //General way
@@ -278,18 +286,41 @@ public class StreamsDemo {
                 .orElseThrow();
         System.out.println("Middle int type2 = " + i1);
 
+        //analyze skip()
+        List<Integer> i2 = list.stream()
+                .skip(middleIndex)
+                .toList();
+        System.out.println("Middle int type2 skip function = " + i2);
+
         list.stream()
                 .filter(n-> list.indexOf(n) == middleIndex)
                 .forEach(e -> System.out.println("Middle int type3 = " + e));
     }
     private static void method18() {
-        System.out.println("Query 18 : filer id>150, desc age,desc name,print first");
+        System.out.println("Query 18 : filer id>150, desc age,desc name,print first.");
         employeeList.stream()
                 .filter(e -> e.getId() > 150)
                 .sorted(Comparator.comparing(Employee::getAge)
                         .thenComparing(Employee::getName).reversed())
                 .forEach(System.out::println);
+    }
 
+    private static void method19(){
+        System.out.println("Query 19 : Find the department with the highest total salary.");
+        Set<Map.Entry<String, DoubleSummaryStatistics>> deptSummarySet = employeeList.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::getDepartment, Collectors.summarizingDouble(Employee::getSalary)
+                ))
+                .entrySet();
+
+        System.out.println("deptSummarySet:\n" + deptSummarySet);
+        Map.Entry<String, DoubleSummaryStatistics> deptHighestSum = deptSummarySet.stream()
+                .max(Comparator.comparingDouble(n -> n.getValue().getSum()))
+                .orElse(null);
+        System.out.println("deptHighestSum:\n" + deptHighestSum);
+
+        assert deptHighestSum != null;
+        System.out.println(deptHighestSum.getKey() + ": " + deptHighestSum.getValue().getSum());
 
     }
 }
